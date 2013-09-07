@@ -1,60 +1,27 @@
-var application_root = __dirname;
-var express     = require('express');
-var path        = require('path');
-var mongoose    = require('mongoose');
-
+var express         = require('express');
+var path            = require('path');
+var config          = require('./libs/config');
+var log             = require('./libs/log')(module);
+var ArticleModel    = require('./libs/mongoose').ArticleModel;
 var app = express();
-mongoose.connect('mongodb://localhost/test1'); //local db: test
-var db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function callback () {
-    console.log("Connected to DB!");
-});
-
-var Schema = mongoose.Schema;
-
-// Schemas
-
-var Images = new Schema({
-    kind: {
-        type: String,
-        enum: ['thumbnail', 'detail'],
-        required: true
-    },
-    url: { type: String, required: true }
-});
-
-var Article = new Schema({
-    title: { type: String, required: true },
-    author: { type: String, required: true },
-    description: { type: String, required: true },
-    images: [Images],
-    modified: { type: Date, default: Date.now }
-});
-
-// validation
-Article.path('title').validate(function (v) {
-    return v.length > 5 && v.length < 70;
-});
-
-var ArticleModel = mongoose.model('Article', Article);
 
 app.use(express.favicon());
+app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
-app.use(express.static(path.join(application_root, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(function(req, res, next){
     res.status(404);
+    log.debug('Not found URL: %s',req.url);
     res.send({ error: 'Not found' });
     return;
 });
 
 app.use(function(err, req, res, next){
     res.status(err.status || 500);
-    console.log(err);
+    log.error('Internal error(%d): %s',res.statusCode,err.message);
     res.send({ error: err.message });
     return;
 });
@@ -68,8 +35,8 @@ app.get('/api/articles', function(req, res) {
         if (!err) {
             return res.send(articles);
         } else {
-            console.log(err);
             res.statusCode = 500;
+            log.error('Internal error(%d): %s',res.statusCode,err.message);
             return res.send({ error: 'Server error' });
         }
     });
@@ -85,17 +52,18 @@ app.post('/api/articles', function(req, res) {
 
     article.save(function (err) {
         if (!err) {
-            console.log("created");
+            log.info("article created");
             return res.send({ status: 'OK', article:article });
         } else {
             console.log(err);
             if(err.name == 'ValidationError') {
                 res.statusCode = 400;
-                return res.send({ error: 'Validation error' });
+                res.send({ error: 'Validation error' });
             } else {
                 res.statusCode = 500;
-                return res.send({ error: 'Server error' });
+                res.send({ error: 'Server error' });
             }
+            log.error('Internal error(%d): %s',res.statusCode,err.message);
         }
     });
 });
@@ -109,8 +77,8 @@ app.get('/api/articles/:id', function(req, res) {
         if (!err) {
             return res.send({ status: 'OK', article:article });
         } else {
-            console.log(err);
             res.statusCode = 500;
+            log.error('Internal error(%d): %s',res.statusCode,err.message);
             return res.send({ error: 'Server error' });
         }
     });
@@ -129,16 +97,17 @@ app.put('/api/articles/:id', function (req, res){
         article.images = req.body.images;
         return article.save(function (err) {
             if (!err) {
-                console.log("updated");
+                log.info("article updated");
                 return res.send({ status: 'OK', article:article });
             } else {
                 if(err.name == 'ValidationError') {
                     res.statusCode = 400;
-                    return res.send({ error: 'Validation error' });
+                    res.send({ error: 'Validation error' });
                 } else {
                     res.statusCode = 500;
-                    return res.send({ error: 'Server error' });
+                    res.send({ error: 'Server error' });
                 }
+                log.error('Internal error(%d): %s',res.statusCode,err.message);
             }
         });
     });
@@ -152,11 +121,11 @@ app.delete('/api/articles/:id', function (req, res){
         }
         return article.remove(function (err) {
             if (!err) {
-                console.log("removed");
+                log.info("article removed");
                 return res.send({ status: 'OK' });
             } else {
-                console.log(err);
                 res.statusCode = 500;
+                log.error('Internal error(%d): %s',res.statusCode,err.message);
                 return res.send({ error: 'Server error' });
             }
         });
@@ -167,4 +136,6 @@ app.get('/ErrorExample', function(req, res, next){
     next(new Error('Random error!'));
 });
 
-app.listen(1337);
+app.listen(config.get('port'), function(){
+    log.info('Express server listening on port ' + config.get('port'));
+});
