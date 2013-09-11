@@ -1,16 +1,21 @@
 var express         = require('express');
 var path            = require('path');
+var passport        = require('passport');
 var config          = require('./libs/config');
 var log             = require('./libs/log')(module);
+var oauth2          = require('./libs/oauth2');
 var ArticleModel    = require('./libs/mongoose').ArticleModel;
 var app = express();
 
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
+app.use(passport.initialize());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, "public")));
+
+require('./libs/auth');
 
 app.use(function(req, res, next){
     res.status(404);
@@ -26,11 +31,11 @@ app.use(function(err, req, res, next){
     return;
 });
 
-app.get('/api', function (req, res) {
+app.get('/api', passport.authenticate('bearer', { session: false }), function (req, res) {
     res.send('API is running');
 });
 
-app.get('/api/articles', function(req, res) {
+app.get('/api/articles', passport.authenticate('bearer', { session: false }), function(req, res) {
     return ArticleModel.find(function (err, articles) {
         if (!err) {
             return res.send(articles);
@@ -42,7 +47,7 @@ app.get('/api/articles', function(req, res) {
     });
 });
 
-app.post('/api/articles', function(req, res) {
+app.post('/api/articles', passport.authenticate('bearer', { session: false }), function(req, res) {
     var article = new ArticleModel({
         title: req.body.title,
         author: req.body.author,
@@ -68,7 +73,7 @@ app.post('/api/articles', function(req, res) {
     });
 });
 
-app.get('/api/articles/:id', function(req, res) {
+app.get('/api/articles/:id', passport.authenticate('bearer', { session: false }), function(req, res) {
     return ArticleModel.findById(req.params.id, function (err, article) {
         if(!article) {
             res.statusCode = 404;
@@ -84,7 +89,7 @@ app.get('/api/articles/:id', function(req, res) {
     });
 });
 
-app.put('/api/articles/:id', function (req, res){
+app.put('/api/articles/:id', passport.authenticate('bearer', { session: false }), function (req, res){
     return ArticleModel.findById(req.params.id, function (err, article) {
         if(!article) {
             res.statusCode = 404;
@@ -113,7 +118,7 @@ app.put('/api/articles/:id', function (req, res){
     });
 });
 
-app.delete('/api/articles/:id', function (req, res){
+app.delete('/api/articles/:id', passport.authenticate('bearer', { session: false }), function (req, res){
     return ArticleModel.findById(req.params.id, function (err, article) {
         if(!article) {
             res.statusCode = 404;
@@ -131,6 +136,19 @@ app.delete('/api/articles/:id', function (req, res){
         });
     });
 });
+
+app.post('/oauth/token', oauth2.token);
+
+app.get('/api/userInfo',
+    passport.authenticate('bearer', { session: false }),
+        function(req, res) {
+            // req.authInfo is set using the `info` argument supplied by
+            // `BearerStrategy`.  It is typically used to indicate scope of the token,
+            // and used in access control checks.  For illustrative purposes, this
+            // example simply returns the scope in the response.
+            res.json({ user_id: req.user.userId, name: req.user.username, scope: req.authInfo.scope })
+        }
+);
 
 app.get('/ErrorExample', function(req, res, next){
     next(new Error('Random error!'));
