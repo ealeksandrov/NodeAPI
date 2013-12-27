@@ -5,7 +5,7 @@
 Simple RESTful API implementation on Node.js + MongoDB. Auth based on OAuth2 usrname-password flow. Bearer and refresh tokens support.
 
 Tutorials based on this example:
-* english - [aleksandrov.ws](http://www.aleksandrov.ws/blog/2013/09/12/restful-api-with-nodejs-plus-mongodb/)
+* english - [aleksandrov.ws](http://www.aleksandrov.ws/2013/09/12/restful-api-with-nodejs-plus-mongodb/)
 * russian - [habrahabr.ru](http://habrahabr.ru/post/193458/)
 
 Modules used:
