@@ -43,7 +43,7 @@ server.exchange(oauth2orize.exchange.password(function(client, username, passwor
 // Exchange refreshToken for access token.
 
 server.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken, scope, done) {
-    RefreshTokenModel.findOne({ token: refreshToken }, function(err, token) {
+    RefreshTokenModel.findOne({ token: refreshToken, clientId: client.clientId }, function(err, token) {
         if (err) { return done(err); }
         if (!token) { return done(null, false); }
 
