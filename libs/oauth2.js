@@ -46,7 +46,6 @@ server.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken,
     RefreshTokenModel.findOne({ token: refreshToken }, function(err, token) {
         if (err) { return done(err); }
         if (!token) { return done(null, false); }
-        if (!token) { return done(null, false); }
 
         UserModel.findById(token.userId, function(err, user) {
             if (err) { return done(err); }
