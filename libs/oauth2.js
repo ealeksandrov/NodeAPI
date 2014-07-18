@@ -14,8 +14,9 @@ var server = oauth2orize.createServer();
 server.exchange(oauth2orize.exchange.password(function(client, username, password, scope, done) {
     UserModel.findOne({ username: username }, function(err, user) {
         if (err) { return done(err); }
-        if (!user) { return done(null, false); }
-        if (!user.checkPassword(password)) { return done(null, false); }
+        if (!user || !user.checkPassword(password)) {
+          return done(null, false);
+        }
 
         RefreshTokenModel.remove({ userId: user.userId, clientId: client.clientId }, function (err) {
             if (err) { return done(err); }
