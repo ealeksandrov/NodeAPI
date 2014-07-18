@@ -1,4 +1,3 @@
-/*jshint node:true, strict:false, indent:4, onevar:false, maxlen:4000*/
 var oauth2orize         = require('oauth2orize');
 var passport            = require('passport');
 var crypto              = require('crypto');
