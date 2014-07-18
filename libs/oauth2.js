@@ -3,7 +3,6 @@ var passport            = require('passport');
 var crypto              = require('crypto');
 var config              = require('./config');
 var UserModel           = require('./mongoose').UserModel;
-var ClientModel         = require('./mongoose').ClientModel;
 var AccessTokenModel    = require('./mongoose').AccessTokenModel;
 var RefreshTokenModel   = require('./mongoose').RefreshTokenModel;
 
@@ -32,7 +31,6 @@ server.exchange(oauth2orize.exchange.password(function(client, username, passwor
         refreshToken.save(function (err) {
             if (err) { return done(err); }
         });
-        var info = { scope: '*' }
         token.save(function (err, token) {
             if (err) { return done(err); }
             done(null, tokenValue, refreshTokenValue, { 'expires_in': config.get('security:tokenLife') });
@@ -65,7 +63,6 @@ server.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken,
             refreshToken.save(function (err) {
                 if (err) { return done(err); }
             });
-            var info = { scope: '*' }
             token.save(function (err, token) {
                 if (err) { return done(err); }
                 done(null, tokenValue, refreshTokenValue, { 'expires_in': config.get('security:tokenLife') });
