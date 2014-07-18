@@ -16,8 +16,9 @@ var errFn = function (cb, err) {
 };
 
 // Destroys any old tokens and generates a new access and refresh token
-var generateTokens = function (modelData, errorHandler, done) {
-    var refreshToken,
+var generateTokens = function (modelData, done) {
+    var errorHandler = errFn.bind(undefined, done), // curries in `done` callback so we don't need to pass it
+        refreshToken,
         refreshTokenValue,
         token,
         tokenValue;
@@ -43,7 +44,6 @@ var generateTokens = function (modelData, errorHandler, done) {
 
 // Exchange username & password for access token.
 server.exchange(oauth2orize.exchange.password(function(client, username, password, scope, done) {
-    var errorHandler = errFn.bind(undefined, done); // curries in `done` callback so we don't need to pass it
     UserModel.findOne({ username: username }, function(err, user) {
         if (err) { return done(err); }
         if (!user || !user.checkPassword(password)) {
@@ -52,13 +52,12 @@ server.exchange(oauth2orize.exchange.password(function(client, username, passwor
 
         var modelData = { userId: user.userId, clientId: client.clientId };
 
-        generateTokens(modelData, errorHandler, done);
+        generateTokens(modelData, done);
     });
 }));
 
 // Exchange refreshToken for access token.
 server.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken, scope, done) {
-    var errorHandler = errFn.bind(undefined, done); // curries in `done` callback so we don't need to pass it
     RefreshTokenModel.findOne({ token: refreshToken, clientId: client.clientId }, function(err, token) {
         if (err) { return done(err); }
         if (!token) { return done(null, false); }
@@ -69,7 +68,7 @@ server.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken,
 
             var modelData = { userId: user.userId, clientId: client.clientId };
 
-            generateTokens(modelData, errorHandler, done);
+            generateTokens(modelData, done);
         });
     });
 }));
