@@ -10,79 +10,69 @@ var RefreshTokenModel   = require('./mongoose').RefreshTokenModel;
 // create OAuth 2.0 server
 var server = oauth2orize.createServer();
 
+// Generic error handler
 var errFn = function (cb, err) {
     if (err) { return cb(err); }
 };
+
+// Destroys any old tokens and generates a new access and refresh token
+var generateTokens = function (modelData, errorHandler, done) {
+    var refreshToken,
+        refreshTokenValue,
+        token,
+        tokenValue;
+
+    RefreshTokenModel.remove(modelData, errorHandler);
+    AccessTokenModel.remove(modelData, errorHandler);
+
+    tokenValue = crypto.randomBytes(32).toString('base64');
+    refreshTokenValue = crypto.randomBytes(32).toString('base64');
+
+    modelData.token = tokenValue;
+    token = new AccessTokenModel(modelData);
+
+    modelData.token = refreshTokenValue;
+    refreshToken = new RefreshTokenModel(modelData);
+
+    refreshToken.save(errorHandler);
+    token.save(function (err) {
+        if (err) { return done(err); }
+        done(null, tokenValue, refreshTokenValue, { 'expires_in': config.get('security:tokenLife') });
+    });
+};
+
 // Exchange username & password for access token.
-
 server.exchange(oauth2orize.exchange.password(function(client, username, password, scope, done) {
-    var errorHandler = errFn.bind(undefined, done);
+    var errorHandler = errFn.bind(undefined, done); // curries in `done` callback so we don't need to pass it
     UserModel.findOne({ username: username }, function(err, user) {
-        var modelData;
-
         if (err) { return done(err); }
         if (!user || !user.checkPassword(password)) {
             return done(null, false);
         }
 
-        modelData = { userId: user.userId, clientId: client.clientId };
+        var modelData = { userId: user.userId, clientId: client.clientId };
 
-        RefreshTokenModel.remove(modelData, errorHandler);
-        AccessTokenModel.remove(modelData, errorHandler);
-
-        var tokenValue = crypto.randomBytes(32).toString('base64');
-        var refreshTokenValue = crypto.randomBytes(32).toString('base64');
-
-        modelData.token = tokenValue;
-        var token = new AccessTokenModel(modelData);
-
-        modelData.token = refreshTokenValue;
-        var refreshToken = new RefreshTokenModel(modelData);
-
-        refreshToken.save(errorHandler);
-        token.save(function (err) {
-            if (err) { return done(err); }
-            done(null, tokenValue, refreshTokenValue, { 'expires_in': config.get('security:tokenLife') });
-        });
+        generateTokens(modelData, errorHandler, done);
     });
 }));
 
 // Exchange refreshToken for access token.
-
 server.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken, scope, done) {
-    var errorHandler = errFn.bind(undefined, done);
+    var errorHandler = errFn.bind(undefined, done); // curries in `done` callback so we don't need to pass it
     RefreshTokenModel.findOne({ token: refreshToken, clientId: client.clientId }, function(err, token) {
         if (err) { return done(err); }
         if (!token) { return done(null, false); }
 
         UserModel.findById(token.userId, function(err, user) {
-            var modelData;
-
             if (err) { return done(err); }
             if (!user) { return done(null, false); }
 
-            modelData = { userId: user.userId, clientId: client.clientId };
-            RefreshTokenModel.remove(modelData, errorHandler);
-            AccessTokenModel.remove(modelData, errorHandler);
+            var modelData = { userId: user.userId, clientId: client.clientId };
 
-            var tokenValue = crypto.randomBytes(32).toString('base64');
-            var refreshTokenValue = crypto.randomBytes(32).toString('base64');
-
-            modelData.token = tokenValue;
-            var token = new AccessTokenModel(modelData);
-
-            modelData.token = refreshTokenValue;
-            var refreshToken = new RefreshTokenModel(modelData);
-
-            refreshToken.save(errorHandler);
-            token.save(function (err) {
-                if (err) { return done(err); }
-                done(null, tokenValue, refreshTokenValue, { 'expires_in': config.get('security:tokenLife') });
-            });
+            generateTokens(modelData, errorHandler, done);
         });
     });
 }));
-
 
 // token endpoint
 //
