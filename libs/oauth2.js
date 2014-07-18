@@ -18,10 +18,10 @@ server.exchange(oauth2orize.exchange.password(function(client, username, passwor
         if (!user.checkPassword(password)) { return done(null, false); }
 
         RefreshTokenModel.remove({ userId: user.userId, clientId: client.clientId }, function (err) {
-            if (err) return done(err);
+            if (err) { return done(err); }
         });
         AccessTokenModel.remove({ userId: user.userId, clientId: client.clientId }, function (err) {
-            if (err) return done(err);
+            if (err) { return done(err); }
         });
 
         var tokenValue = crypto.randomBytes(32).toString('base64');
@@ -50,10 +50,10 @@ server.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken,
             if (!user) { return done(null, false); }
 
             RefreshTokenModel.remove({ userId: user.userId, clientId: client.clientId }, function (err) {
-                if (err) return done(err);
+                if (err) { return done(err); }
             });
             AccessTokenModel.remove({ userId: user.userId, clientId: client.clientId }, function (err) {
-                if (err) return done(err);
+                if (err) { return done(err); }
             });
 
             var tokenValue = crypto.randomBytes(32).toString('base64');
