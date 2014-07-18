@@ -31,7 +31,7 @@ server.exchange(oauth2orize.exchange.password(function(client, username, passwor
         refreshToken.save(function (err) {
             if (err) { return done(err); }
         });
-        token.save(function (err, token) {
+        token.save(function (err) {
             if (err) { return done(err); }
             done(null, tokenValue, refreshTokenValue, { 'expires_in': config.get('security:tokenLife') });
         });
@@ -63,7 +63,7 @@ server.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken,
             refreshToken.save(function (err) {
                 if (err) { return done(err); }
             });
-            token.save(function (err, token) {
+            token.save(function (err) {
                 if (err) { return done(err); }
                 done(null, tokenValue, refreshTokenValue, { 'expires_in': config.get('security:tokenLife') });
             });
@@ -83,4 +83,4 @@ exports.token = [
     passport.authenticate(['basic', 'oauth2-client-password'], { session: false }),
     server.token(),
     server.errorHandler()
-]
+];
