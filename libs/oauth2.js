@@ -18,18 +18,27 @@ var errFn = function (cb, err) {
 server.exchange(oauth2orize.exchange.password(function(client, username, password, scope, done) {
     var errorHandler = errFn.bind(undefined, done);
     UserModel.findOne({ username: username }, function(err, user) {
+        var modelData;
+
         if (err) { return done(err); }
         if (!user || !user.checkPassword(password)) {
             return done(null, false);
         }
 
-        RefreshTokenModel.remove({ userId: user.userId, clientId: client.clientId }, errorHandler);
-        AccessTokenModel.remove({ userId: user.userId, clientId: client.clientId }, errorHandler);
+        modelData = { userId: user.userId, clientId: client.clientId };
+
+        RefreshTokenModel.remove(modelData, errorHandler);
+        AccessTokenModel.remove(modelData, errorHandler);
 
         var tokenValue = crypto.randomBytes(32).toString('base64');
         var refreshTokenValue = crypto.randomBytes(32).toString('base64');
-        var token = new AccessTokenModel({ token: tokenValue, clientId: client.clientId, userId: user.userId });
-        var refreshToken = new RefreshTokenModel({ token: refreshTokenValue, clientId: client.clientId, userId: user.userId });
+
+        modelData.token = tokenValue;
+        var token = new AccessTokenModel(modelData);
+
+        modelData.token = refreshTokenValue;
+        var refreshToken = new RefreshTokenModel(modelData);
+
         refreshToken.save(errorHandler);
         token.save(function (err) {
             if (err) { return done(err); }
@@ -47,16 +56,24 @@ server.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken,
         if (!token) { return done(null, false); }
 
         UserModel.findById(token.userId, function(err, user) {
+            var modelData;
+
             if (err) { return done(err); }
             if (!user) { return done(null, false); }
 
-            RefreshTokenModel.remove({ userId: user.userId, clientId: client.clientId }, errorHandler);
-            AccessTokenModel.remove({ userId: user.userId, clientId: client.clientId }, errorHandler);
+            modelData = { userId: user.userId, clientId: client.clientId };
+            RefreshTokenModel.remove(modelData, errorHandler);
+            AccessTokenModel.remove(modelData, errorHandler);
 
             var tokenValue = crypto.randomBytes(32).toString('base64');
             var refreshTokenValue = crypto.randomBytes(32).toString('base64');
-            var token = new AccessTokenModel({ token: tokenValue, clientId: client.clientId, userId: user.userId });
-            var refreshToken = new RefreshTokenModel({ token: refreshTokenValue, clientId: client.clientId, userId: user.userId });
+
+            modelData.token = tokenValue;
+            var token = new AccessTokenModel(modelData);
+
+            modelData.token = refreshTokenValue;
+            var refreshToken = new RefreshTokenModel(modelData);
+
             refreshToken.save(errorHandler);
             token.save(function (err) {
                 if (err) { return done(err); }
