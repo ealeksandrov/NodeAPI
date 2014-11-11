@@ -1,23 +1,26 @@
 {
-    "name": "NodeAPI",
-    "version": "0.1.0",
-    "author": "Evgeny Aleksandrov",
-    "description": "simple example of RESTful API with Node.js",
-    "private": true,
-    "scripts": {
-        "start": "node ./server.js"
-    },
-    "dependencies" : {
-        "express"       : "3.3.x",
-        "mongoose"      : "3.6.x",
-        "nconf"         : "0.6.x",
-        "winston"       : "0.7.x",
-        "Faker"         : "0.5.x",
-        "oauth2orize"   : "0.1.x",
-        "passport"      : "0.1.x",
-        "passport-http" : "0.2.x",
-        "passport-http-bearer": "1.0.x",
-        "passport-oauth2-client-password": "0.1.x"
-    },
-    "license": "MIT"
+  "name": "NodeAPI",
+  "version": "0.1.0",
+  "author": "Evgeny Aleksandrov",
+  "description": "simple example of RESTful API with Node.js",
+  "private": true,
+  "scripts": {
+    "start": "node ./server.js"
+  },
+  "dependencies": {
+    "body-parser": "1.9.x",
+    "express": "4.10.x",
+    "faker": "2.0.x",
+    "method-override": "2.3.x",
+    "mongoose": "3.8.x",
+    "nconf": "0.6.x",
+    "oauth2orize": "1.0.x",
+    "passport": "0.2.x",
+    "passport-http": "0.2.x",
+    "passport-http-bearer": "1.0.x",
+    "passport-oauth2-client-password": "0.1.x",
+    "serve-favicon": "2.1.x",
+    "winston": "0.8.x"
+  },
+  "license": "MIT"
 }
