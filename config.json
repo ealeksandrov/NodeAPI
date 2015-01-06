@@ -1,0 +1,23 @@
+{
+  "port": 1338,
+  "security": {
+        "tokenLife" : 3600
+  },
+  "mongoose": {
+    "uri": "mongodb://localhost/apiDB"
+  },
+  "default": {
+  	"api": {
+  		"version" : "v1"
+  	},
+  	"user": {
+  		"username": "myapi",
+  		"password": "abc1234"
+  	},
+  	"client": {
+  		"name": "Android API v1",
+  		"clientId": "android",
+  		"clientSecret": "123456"
+  	}
+  }
+}
