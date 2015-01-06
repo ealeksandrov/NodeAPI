@@ -17,7 +17,7 @@
   	"client": {
   		"name": "Android API v1",
   		"clientId": "android",
-  		"clientSecret": "123456"
+  		"clientSecret": "SomeRandomCharsAndNumbers"
   	}
   }
 }
