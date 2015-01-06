@@ -1,26 +1,29 @@
 {
-  "name": "NodeAPI",
-  "version": "0.1.0",
-  "author": "Evgeny Aleksandrov",
-  "description": "simple example of RESTful API with Node.js",
-  "private": true,
-  "scripts": {
-    "start": "node ./server.js"
-  },
-  "dependencies": {
-    "body-parser": "1.9.x",
-    "express": "4.10.x",
-    "faker": "2.0.x",
-    "method-override": "2.3.x",
-    "mongoose": "3.8.x",
-    "nconf": "0.6.x",
-    "oauth2orize": "1.0.x",
-    "passport": "0.2.x",
-    "passport-http": "0.2.x",
-    "passport-http-bearer": "1.0.x",
-    "passport-oauth2-client-password": "0.1.x",
-    "serve-favicon": "2.1.x",
-    "winston": "0.8.x"
-  },
-  "license": "MIT"
+    "name": "NodeAPI",
+    "version": "1.0.0",
+    "author": "Evgeny Aleksandrovc",
+    "description": "Simple example of RESTful API with Node.js and passport",
+    "private": true,
+    "scripts": {
+        "start": "node ./bin/www"
+    },
+    "dependencies": {
+        "body-parser": "~1.8.1",
+        "cookie-parser": "~1.3.3",
+        "debug": "~2.0.0",
+        "express": "~4.10.7",
+        "faker": "^2.0.1",
+        "method-override": "^2.3.0",
+        "mongoose": "^3.8.21",
+        "morgan": "~1.3.0",
+        "nconf": "^0.6.9",
+        "oauth2orize": "^1.0.1",
+        "passport": "^0.2.1",
+        "passport-http": "^0.2.2",
+        "passport-http-bearer": "^1.0.1",
+        "passport-oauth2-client-password": "^0.1.2",
+        "underscore": "^1.7.0",
+        "winston": "^0.8.1"
+    },
+    "license": "MIT"
 }
