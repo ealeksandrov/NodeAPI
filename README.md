@@ -63,7 +63,6 @@ Some of non standard modules used:
 * [faker](https://www.npmjs.com/package/faker)
 * [oauth2orize](https://www.npmjs.com/package/oauth2orize)
 * [passport](https://www.npmjs.com/package/passport)
-* [underscore](https://www.npmjs.com/package/underscore)
 
 ## Tools used
 
@@ -72,9 +71,11 @@ Some of non standard modules used:
 ## Author
 
 This example was created by Evgeny Aleksandrov ([@EAleksandrov](http://twitter.com/EAleksandrov)).
-Updated by [Istock Jared](https://github.com/IstockJared) and  [Marko Arsić](http://portfolio.marsic.info/)  
+
+Updated by: 
+* [Istock Jared](https://github.com/IstockJared)
+* [Marko Arsić](http://portfolio.marsic.info/)  
 
 ## License
 
-[MIT](https://github.com/marsicdev/NodeAPI/blob/master/LICENSE)
-
+[MIT](https://github.com/ealeksandrov/NodeAPI/blob/master/LICENSE)
