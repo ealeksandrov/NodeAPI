@@ -1,13 +1,15 @@
 var faker = require('faker');
 
-var log = require('./libs/log')(module);
-var db = require('./libs/db/mongoose');
-var config = require('./libs/config');
+var libs = process.cwd() + '/libs/';
 
-var User = require('./libs/model/user');
-var Client = require('./libs/model/client');
-var AccessToken = require('./libs/model/accessToken');
-var RefreshToken = require('./libs/model/refreshToken');
+var log = require(libs + 'log')(module);
+var db = require(libs + 'db/mongoose');
+var config = require(libs + 'config');
+
+var User = require(libs + 'model/user');
+var Client = require(libs + 'model/client');
+var AccessToken = require(libs + 'model/accessToken');
+var RefreshToken = require(libs + 'model/refreshToken');
 
 User.remove({}, function(err) {
     var user = new User({ 
