@@ -68,6 +68,14 @@ Some of non standard modules used:
 
 [httpie](https://github.com/jkbr/httpie) - command line HTTP client
 
+### JSHint
+
+For running JSHint  
+```
+sudo npm install jshint -g
+jshint libs/**/*.js generateData.js
+```
+
 ## Author
 
 This example was created by Evgeny Aleksandrov ([@EAleksandrov](http://twitter.com/EAleksandrov)).

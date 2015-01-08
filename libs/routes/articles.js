@@ -42,7 +42,7 @@ router.post('/', passport.authenticate('bearer', { session: false }), function(r
 				article:article 
 			});
 		} else {
-			if(err.name == 'ValidationError') {
+			if(err.name === 'ValidationError') {
 				res.statusCode = 400;
 				res.json({ 
 					error: 'Validation error' 
@@ -111,7 +111,7 @@ router.put('/:id', passport.authenticate('bearer', { session: false }), function
 					article:article 
 				});
 			} else {
-				if(err.name == 'ValidationError') {
+				if(err.name === 'ValidationError') {
 					res.statusCode = 400;
 					return res.json({ 
 						error: 'Validation error' 

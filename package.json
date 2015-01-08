@@ -23,5 +23,26 @@
         "passport-oauth2-client-password": "^0.1.x",
         "winston": "^0.8.x"
     },
+    "jshintConfig":{
+        "curly": true,
+        "eqeqeq": true,
+        "immed": true,
+        "latedef": false,
+        "newcap": false,
+        "noarg": true,
+        "sub": true,
+        "undef": true,
+        "boss": true,
+        "eqnull": true,
+        "strict": false,
+        "scripturl": true,
+        "evil": true,
+        "globals" : {
+            "location": true,
+            "printStackTrace": false
+        },
+        "browser" : true,
+        "node": true
+    },
     "license": "MIT"
 }

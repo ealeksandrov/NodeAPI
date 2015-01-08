@@ -23,7 +23,7 @@ passport.use(new BasicStrategy(
             	return done(null, false); 
             }
 
-            if (client.clientSecret != password) { 
+            if (client.clientSecret !== password) { 
             	return done(null, false); 
             }
 
@@ -43,7 +43,7 @@ passport.use(new ClientPasswordStrategy(
             	return done(null, false); 
             }
 
-            if (client.clientSecret != clientSecret) { 
+            if (client.clientSecret !== clientSecret) { 
             	return done(null, false); 
             }
 
@@ -85,7 +85,7 @@ passport.use(new BearerStrategy(
                 	return done(null, false, { message: 'Unknown user' }); 
                 }
 
-                var info = { scope: '*' }
+                var info = { scope: '*' };
                 done(null, user, info);
             });
         });
