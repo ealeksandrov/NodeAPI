@@ -1,7 +1,7 @@
 {
     "name": "NodeAPI",
     "version": "1.0.0",
-    "author": "Evgeny Aleksandrovc",
+    "author": "Evgeny Aleksandrov",
     "description": "Simple example of RESTful API with Node.js and passport",
     "private": true,
     "scripts": {
