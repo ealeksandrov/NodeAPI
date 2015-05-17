@@ -35,8 +35,8 @@ var generateTokens = function (data, done) {
     RefreshToken.remove(data, errorHandler);
     AccessToken.remove(data, errorHandler);
 
-    tokenValue = crypto.randomBytes(32).toString('base64');
-    refreshTokenValue = crypto.randomBytes(32).toString('base64');
+    tokenValue = crypto.randomBytes(32).toString('hex');
+    refreshTokenValue = crypto.randomBytes(32).toString('hex');
 
     data.token = tokenValue;
     token = new AccessToken(data);
