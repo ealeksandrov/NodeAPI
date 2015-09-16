@@ -25,7 +25,7 @@ var mongoose = require('mongoose'),
 
 User.methods.encryptPassword = function(password) {
 	return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
-    //more secure - return crypto.pbkdf2Sync(password, this.salt, 10000, 512).toString('base64').replace(/\//g,'_').replace(/\+/g,'-');
+    //more secure - return crypto.pbkdf2Sync(password, this.salt, 10000, 512).toString('hex');
 };
 
 User.virtual('userId')
