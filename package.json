@@ -14,7 +14,7 @@
         "express": "~4.10.x",
         "faker": "^2.0.x",
         "method-override": "^2.3.x",
-        "mongoose": "^3.8.x",
+        "mongoose": "^4.4.x",
         "nconf": "^0.6.x",
         "oauth2orize": "^1.0.x",
         "passport": "^0.2.x",
