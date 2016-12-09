@@ -49,11 +49,13 @@ router.post('/', passport.authenticate('bearer', { session: false }), function(r
 				});
 			} else {
 				res.statusCode = 500;
+				
+				log.error('Internal error(%d): %s', res.statusCode, err.message);
+				
 				res.json({ 
 					error: 'Server error' 
 				});
 			}
-			log.error('Internal error(%d): %s', res.statusCode, err.message);
 		}
 	});
 });
