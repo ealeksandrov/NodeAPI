@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+
+  node_api:
+    build: .
+    environment:
+      - "PORT:3000"
+    ports:
+      - "1337:1337"
+      - "3000:3000"
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - db
+    restart: always
+
+  mongo:
+    image: mongo:3.4.4
+    volumes:
+      - /data/mongo:/data/db
+    environment:
+      - MONGODB_USERNAME=myapi
+      - MONGODB_PASSWORD=abc1234
+      - MONGODB_DATABASE=apiDB
+    ports:
+      - "27017:27017"
+    networks:
+      - db
+    restart: always
+
+networks:
+  db:
+    driver: bridge
