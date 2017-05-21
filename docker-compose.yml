@@ -19,10 +19,6 @@ services:
     image: mongo:3.4.4
     volumes:
       - /data/mongo:/data/db
-    environment:
-      - MONGODB_USERNAME=myapi
-      - MONGODB_PASSWORD=abc1234
-      - MONGODB_DATABASE=apiDB
     ports:
       - "27017:27017"
     networks:
