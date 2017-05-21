@@ -4,7 +4,7 @@
         "tokenLife" : 3600
     },
     "mongoose": {
-        "uri": "mongodb://localhost/apiDB"
+        "uri": "mongodb://mongo/apiDB"
     },
     "default": {
         "api": {
