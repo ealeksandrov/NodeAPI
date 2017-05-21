@@ -29,11 +29,11 @@ To run server execute:
 node bin/www
 ```
 
-## Running project by Docker
+## Running project on Docker
 
 You need to have installed docker engine & docker compose
 
-### Install dependencies
+### Run server
 
 To start applications enter project folder and run following command:
 ```
