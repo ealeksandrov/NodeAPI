@@ -5,7 +5,8 @@ services:
   node_api:
     build: .
     environment:
-      - "PORT:3000"
+      - PORT=1337
+      - ENV_IN=docker
     ports:
       - "1337:1337"
       - "3000:3000"
