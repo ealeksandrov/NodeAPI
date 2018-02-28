@@ -9,11 +9,8 @@
     },
     "dependencies": {
         "body-parser": "^1.18.x",
-        "cookie-parser": "^1.4.x",
-        "debug": "^3.1.x",
         "express": "^4.16.x",
         "faker": "^4.1.x",
-        "method-override": "^2.3.x",
         "mongoose": "^5.0.x",
         "nconf": "^0.10.x",
         "oauth2orize": "^1.11.x",
