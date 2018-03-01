@@ -18,7 +18,7 @@ var AccessToken = new Schema({
         unique: true,
         required: true
     },
-    
+
     created: {
         type: Date,
         default: Date.now

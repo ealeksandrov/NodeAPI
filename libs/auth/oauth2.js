@@ -17,8 +17,8 @@ var aserver = oauth2orize.createServer();
 
 // Generic error handler
 var errFn = function (cb, err) {
-	if (err) { 
-		return cb(err); 
+	if (err) {
+		return cb(err);
 	}
 };
 
@@ -26,7 +26,7 @@ var errFn = function (cb, err) {
 var generateTokens = function (data, done) {
 
 	// curries in `done` callback so we don't need to pass it
-    var errorHandler = errFn.bind(undefined, done), 
+    var errorHandler = errFn.bind(undefined, done),
 	    refreshToken,
 	    refreshTokenValue,
 	    token,
@@ -48,32 +48,32 @@ var generateTokens = function (data, done) {
 
     token.save(function (err) {
     	if (err) {
-			
+
 			log.error(err);
-    		return done(err); 
+    		return done(err);
     	}
-    	done(null, tokenValue, refreshTokenValue, { 
-    		'expires_in': config.get('security:tokenLife') 
+    	done(null, tokenValue, refreshTokenValue, {
+    		'expires_in': config.get('security:tokenLife')
     	});
     });
 };
 
 // Exchange username & password for access token.
 aserver.exchange(oauth2orize.exchange.password(function(client, username, password, scope, done) {
-	
+
 	User.findOne({ username: username }, function(err, user) {
-		
-		if (err) { 
-			return done(err); 
+
+		if (err) {
+			return done(err);
 		}
-		
+
 		if (!user || !user.checkPassword(password)) {
 			return done(null, false);
 		}
 
-		var model = { 
-			userId: user.userId, 
-			clientId: client.clientId 
+		var model = {
+			userId: user.userId,
+			clientId: client.clientId
 		};
 
 		generateTokens(model, done);
@@ -85,21 +85,21 @@ aserver.exchange(oauth2orize.exchange.password(function(client, username, passwo
 aserver.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken, scope, done) {
 
 	RefreshToken.findOne({ token: refreshToken, clientId: client.clientId }, function(err, token) {
-		if (err) { 
-			return done(err); 
+		if (err) {
+			return done(err);
 		}
 
-		if (!token) { 
-			return done(null, false); 
+		if (!token) {
+			return done(null, false);
 		}
 
 		User.findById(token.userId, function(err, user) {
 			if (err) { return done(err); }
 			if (!user) { return done(null, false); }
 
-			var model = { 
-				userId: user.userId, 
-				clientId: client.clientId 
+			var model = {
+				userId: user.userId,
+				clientId: client.clientId
 			};
 
 			generateTokens(model, done);

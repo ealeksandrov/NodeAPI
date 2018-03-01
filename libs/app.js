@@ -30,8 +30,8 @@ app.use('/api/oauth/token', oauth2.token);
 app.use(function(req, res, next){
     res.status(404);
     log.debug('%s %d %s', req.method, res.statusCode, req.url);
-    res.json({ 
-    	error: 'Not found' 
+    res.json({
+    	error: 'Not found'
     });
     return;
 });
@@ -40,8 +40,8 @@ app.use(function(req, res, next){
 app.use(function(err, req, res, next){
     res.status(err.status || 500);
     log.error('%s %d %s', req.method, res.statusCode, err.message);
-    res.json({ 
-    	error: err.message 
+    res.json({
+    	error: err.message
     });
     return;
 });

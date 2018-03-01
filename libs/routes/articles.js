@@ -95,8 +95,8 @@ router.put('/:id', passport.authenticate('bearer', { session: false }), function
 		if(!article) {
 			res.statusCode = 404;
 			log.error('Article with id: %s Not Found', articleId);
-			return res.json({ 
-				error: 'Not found' 
+			return res.json({
+				error: 'Not found'
 			});
 		}
 
@@ -104,25 +104,25 @@ router.put('/:id', passport.authenticate('bearer', { session: false }), function
 		article.description = req.body.description;
 		article.author = req.body.author;
 		article.images = req.body.images;
-		
+
 		article.save(function (err) {
 			if (!err) {
 				log.info("Article with id: %s updated", article.id);
-				return res.json({ 
-					status: 'OK', 
-					article:article 
+				return res.json({
+					status: 'OK',
+					article:article
 				});
 			} else {
 				if(err.name === 'ValidationError') {
 					res.statusCode = 400;
-					return res.json({ 
-						error: 'Validation error' 
+					return res.json({
+						error: 'Validation error'
 					});
 				} else {
 					res.statusCode = 500;
-					
-					return res.json({ 
-						error: 'Server error' 
+
+					return res.json({
+						error: 'Server error'
 					});
 				}
 				log.error('Internal error (%d): %s', res.statusCode, err.message);
