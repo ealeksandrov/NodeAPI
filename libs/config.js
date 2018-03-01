@@ -1,13 +1,15 @@
 var nconf = require('nconf');
 
-var config = (process.env.ENV_IN === 'docker') ?
-    '/docker.config.json' :
-    '/config.json';
+nconf.argv().env();
 
-nconf.argv()
-	.env()
-	.file({
-		file: process.cwd() + config
-	});
+if (process.env.ENV_IN === 'docker') {
+    nconf.file('docker', {
+        file: process.cwd() + '/docker.config.json'
+    });
+}
+
+nconf.file('defaults', {
+    file: process.cwd() + '/config.json'
+});
 
 module.exports = nconf;
