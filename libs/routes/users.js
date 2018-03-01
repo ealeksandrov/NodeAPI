@@ -13,9 +13,9 @@ router.get('/info', passport.authenticate('bearer', { session: false }),
         // and used in access control checks.  For illustrative purposes, this
         // example simply returns the scope in the response.
         res.json({
-        	user_id: req.user.userId,
-        	name: req.user.username,
-        	scope: req.authInfo.scope
+            user_id: req.user.userId,
+            name: req.user.username,
+            scope: req.authInfo.scope
         });
     }
 );
