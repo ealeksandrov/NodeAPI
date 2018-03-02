@@ -59,9 +59,9 @@ var generateTokens = function (data, done) {
 };
 
 // Exchange username & password for access token
-aserver.exchange(oauth2orize.exchange.password(function(client, username, password, scope, done) {
+aserver.exchange(oauth2orize.exchange.password(function (client, username, password, scope, done) {
 
-    User.findOne({ username: username }, function(err, user) {
+    User.findOne({ username: username }, function (err, user) {
 
         if (err) {
             return done(err);
@@ -82,9 +82,9 @@ aserver.exchange(oauth2orize.exchange.password(function(client, username, passwo
 }));
 
 // Exchange refreshToken for access token.
-aserver.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken, scope, done) {
+aserver.exchange(oauth2orize.exchange.refreshToken(function (client, refreshToken, scope, done) {
 
-    RefreshToken.findOne({ token: refreshToken, clientId: client.clientId }, function(err, token) {
+    RefreshToken.findOne({ token: refreshToken, clientId: client.clientId }, function (err, token) {
         if (err) {
             return done(err);
         }
@@ -93,7 +93,7 @@ aserver.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken
             return done(null, false);
         }
 
-        User.findById(token.userId, function(err, user) {
+        User.findById(token.userId, function (err, user) {
             if (err) { return done(err); }
             if (!user) { return done(null, false); }
 
@@ -110,8 +110,8 @@ aserver.exchange(oauth2orize.exchange.refreshToken(function(client, refreshToken
 // token endpoint
 //
 // `token` middleware handles client requests to exchange authorization grants
-// for access tokens.  Based on the grant type being exchanged, the above
-// exchange middleware will be invoked to handle the request.  Clients must
+// for access tokens. Based on the grant type being exchanged, the above
+// exchange middleware will be invoked to handle the request. Clients must
 // authenticate when making requests to this endpoint.
 
 exports.token = [

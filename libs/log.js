@@ -5,7 +5,7 @@ winston.emitErrs = true;
 function logger(module) {
 
     return new winston.Logger({
-        transports : [
+        transports: [
             new winston.transports.File({
                 level: 'info',
                 filename: process.cwd() + '/logs/all.log',
@@ -27,7 +27,7 @@ function logger(module) {
     });
 }
 
-function getFilePath (module ) {
+function getFilePath(module) {
     //using filename in log statements
     return module.filename.split('/').slice(-2).join('/');
 }
