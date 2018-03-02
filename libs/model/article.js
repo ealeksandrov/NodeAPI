@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// Article
 var Images = new Schema({
     kind: {
         type: String,

@@ -12,7 +12,7 @@ var User = require(libs + 'model/user');
 var AccessToken = require(libs + 'model/accessToken');
 var RefreshToken = require(libs + 'model/refreshToken');
 
-// create OAuth 2.0 server
+// Create OAuth 2.0 server
 var aserver = oauth2orize.createServer();
 
 // Generic error handler
@@ -22,10 +22,10 @@ var errFn = function (cb, err) {
     }
 };
 
-// Destroys any old tokens and generates a new access and refresh token
+// Destroy any old tokens and generates a new access and refresh token
 var generateTokens = function (data, done) {
 
-    // curries in `done` callback so we don't need to pass it
+    // Curries in `done` callback so we don't need to pass it
     var errorHandler = errFn.bind(undefined, done),
         refreshToken,
         refreshTokenValue,
@@ -81,7 +81,7 @@ aserver.exchange(oauth2orize.exchange.password(function (client, username, passw
 
 }));
 
-// Exchange refreshToken for access token.
+// Exchange refreshToken for access token
 aserver.exchange(oauth2orize.exchange.refreshToken(function (client, refreshToken, scope, done) {
 
     RefreshToken.findOne({ token: refreshToken, clientId: client.clientId }, function (err, token) {

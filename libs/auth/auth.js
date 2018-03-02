@@ -12,6 +12,10 @@ var Client = require(libs + 'model/client');
 var AccessToken = require(libs + 'model/accessToken');
 var RefreshToken = require(libs + 'model/refreshToken');
 
+// 2 Client Password strategies - 1st is required, 2nd is optional
+// https://tools.ietf.org/html/draft-ietf-oauth-v2-27#section-2.3.1
+
+// Client Password - HTTP Basic authentication
 passport.use(new BasicStrategy(
     function (username, password, done) {
         Client.findOne({ clientId: username }, function (err, client) {
@@ -32,6 +36,7 @@ passport.use(new BasicStrategy(
     }
 ));
 
+// Client Password - credentials in the request body
 passport.use(new ClientPasswordStrategy(
     function (clientId, clientSecret, done) {
         Client.findOne({ clientId: clientId }, function (err, client) {
@@ -51,6 +56,9 @@ passport.use(new ClientPasswordStrategy(
         });
     }
 ));
+
+// Bearer Token strategy
+// https://tools.ietf.org/html/rfc6750
 
 passport.use(new BearerStrategy(
     function (accessToken, done) {

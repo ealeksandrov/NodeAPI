@@ -26,7 +26,7 @@ app.use('/api/users', users);
 app.use('/api/articles', articles);
 app.use('/api/oauth/token', oauth2.token);
 
-// catch 404 and forward to error handler
+// Catch 404 and forward to error handler
 app.use(function (req, res, next) {
     res.status(404);
     log.debug('%s %d %s', req.method, res.statusCode, req.url);
@@ -36,7 +36,7 @@ app.use(function (req, res, next) {
     return;
 });
 
-// error handlers
+// Error handlers
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     log.error('%s %d %s', req.method, res.statusCode, err.message);

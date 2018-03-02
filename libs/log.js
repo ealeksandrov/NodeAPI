@@ -28,7 +28,7 @@ function logger(module) {
 }
 
 function getFilePath(module) {
-    //using filename in log statements
+    // Add filename in log statements
     return module.filename.split('/').slice(-2).join('/');
 }
 
