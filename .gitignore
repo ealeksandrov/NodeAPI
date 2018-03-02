@@ -1,17 +1,26 @@
+# OS noise
 .DS_Store
-.idea
-lib-cov
-*.seed
-*.log
-*.csv
-*.dat
-*.out
-*.pid
-*.gz
+._*
+*~
 
-pids
+# Other CSM
+.hg
+.svn
+CVS
+
+# Logs
 logs
-results
+*.log
+npm-debug.log*
 
-npm-debug.log
-node_modules
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# npm
+node_modules/
+
+# App data
+/data/
