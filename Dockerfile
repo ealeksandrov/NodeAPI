@@ -1,6 +1,6 @@
 FROM node:6.10.3
 
-MAINTAINER Yuttasak Pannawat <yuttasakcom@gmail.com>
+LABEL maintainer="Yuttasak Pannawat <yuttasakcom@gmail.com>"
 
 RUN mkdir -p /app
 ADD package.json /app
