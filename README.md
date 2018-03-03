@@ -104,4 +104,4 @@ Updated by:
 
 ## License
 
-[MIT](https://github.com/ealeksandrov/NodeAPI/blob/master/LICENSE)
+`NodeAPI` is available under the MIT license. See the [LICENSE.md](LICENSE.md) file for more info.
