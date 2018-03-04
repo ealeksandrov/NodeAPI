@@ -38,7 +38,7 @@ router.post('/', passport.authenticate('bearer', { session: false }), function (
 
     article.save(function (err) {
         if (!err) {
-            log.info("New article created with id: %s", article.id);
+            log.info('New article created with id: %s', article.id);
             return res.json({
                 status: 'OK',
                 article: article
@@ -111,7 +111,7 @@ router.put('/:id', passport.authenticate('bearer', { session: false }), function
 
         article.save(function (err) {
             if (!err) {
-                log.info("Article with id: %s updated", article.id);
+                log.info('Article with id: %s updated', article.id);
                 return res.json({
                     status: 'OK',
                     article: article
