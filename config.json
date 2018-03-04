@@ -7,9 +7,6 @@
         "uri": "mongodb://localhost/apiDB"
     },
     "default": {
-        "api": {
-            "version" : "v1"
-        },
         "user": {
             "username": "myapi",
             "password": "abc1234"

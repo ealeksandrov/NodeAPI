@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var Images = new Schema({
+var Image = new Schema({
     kind: {
         type: String,
         enum: ['thumbnail', 'detail'],
@@ -14,7 +14,7 @@ var Article = new Schema({
     title: { type: String, required: true },
     author: { type: String, required: true },
     description: { type: String, required: true },
-    images: [Images],
+    images: [Image],
     modified: { type: Date, default: Date.now }
 });
 
