@@ -1,6 +1,7 @@
 # Node REST API
 
 [![Dependency Status](https://img.shields.io/david/ealeksandrov/NodeAPI.svg)](https://david-dm.org/ealeksandrov/NodeAPI)
+[![Dependency Status](https://img.shields.io/david/dev/ealeksandrov/NodeAPI.svg)](https://david-dm.org/ealeksandrov/NodeAPI)
 [![License](https://img.shields.io/github/license/ealeksandrov/NodeAPI.svg)](LICENSE.md)
 
 `NodeAPI` is REST API server implementation built on top `Node.js` and `Express.js` with `Mongoose.js` for `MongoDB` integration. Access control follows `OAuth 2.0` spec with the help of `OAuth2orize` and `Passport.js`.
@@ -42,12 +43,16 @@ mongod --dbpath ./data/mongo
 ### Run server
 
 ```sh
+npm start
+# alias for
 node bin/www
 ```
 
 ### Create demo data
 
 ```sh
+npm run-script generate
+# alias for
 node generateData.js
 ```
 
@@ -95,6 +100,14 @@ http http://localhost:1337/api/users/info Authorization:'Bearer ACCESS_TOKEN'
 http http://localhost:1337/api/articles Authorization:'Bearer ACCESS_TOKEN'
 ```
 
+## Tests
+
+```sh
+npm test
+# alias for
+node ./test/server.test.js
+```
+
 ## Modules used
 
 Some of non-standard modules used:
@@ -106,6 +119,11 @@ Some of non-standard modules used:
 * [faker](https://www.npmjs.com/package/faker)
 * [oauth2orize](https://www.npmjs.com/package/oauth2orize)
 * [passport](https://www.npmjs.com/package/passport)
+
+Test modules:
+
+* [tape](https://www.npmjs.com/package/tape)
+* [superagent](https://www.npmjs.com/package/superagent)
 
 ## Tools used
 

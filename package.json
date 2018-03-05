@@ -5,7 +5,9 @@
     "description": "Simple example of RESTful API with Node.js and passport",
     "private": true,
     "scripts": {
-        "start": "node ./bin/www"
+        "start": "node ./bin/www",
+        "test": "node ./test/server.test.js",
+        "generate": "node ./generateData.js"
     },
     "dependencies": {
         "body-parser": "^1.18.x",
@@ -19,6 +21,10 @@
         "passport-http-bearer": "^1.0.x",
         "passport-oauth2-client-password": "^0.1.x",
         "winston": "^2.4.x"
+    },
+    "devDependencies": {
+        "superagent": "^3.8.x",
+        "tape": "^4.9.x"
     },
     "jshintConfig": {
         "curly": true,
