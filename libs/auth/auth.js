@@ -74,7 +74,7 @@ passport.use(new BearerStrategy(
 
             if (Math.round((Date.now() - token.created) / 1000) > config.get('security:tokenLife')) {
 
-                AccessToken.remove({ token: accessToken }, function (err) {
+                AccessToken.deleteMany({ token: accessToken }, function (err) {
                     if (err) {
                         return done(err);
                     }
