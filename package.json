@@ -20,7 +20,7 @@
         "passport-http": "^0.3.x",
         "passport-http-bearer": "^1.0.x",
         "passport-oauth2-client-password": "^0.1.x",
-        "winston": "^2.4.x"
+        "winston": "^3.2.x"
     },
     "devDependencies": {
         "superagent": "^5.1.0",

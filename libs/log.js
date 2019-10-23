@@ -1,26 +1,29 @@
 var winston = require('winston');
 
-winston.emitErrs = true;
-
 function logger(module) {
 
-    return new winston.Logger({
+    return new winston.createLogger({
         transports: [
             new winston.transports.File({
                 level: 'info',
                 filename: process.cwd() + '/logs/all.log',
-                handleException: true,
-                json: true,
+                handleExceptions: true,
+                format: winston.format.json(),
                 maxSize: 5242880, //5mb
-                maxFiles: 2,
-                colorize: false
+                maxFiles: 2
             }),
             new winston.transports.Console({
                 level: 'debug',
-                label: getFilePath(module),
-                handleException: true,
-                json: false,
-                colorize: true
+                defaultMeta: { service: 'your-service-name' },
+                handleExceptions: true,
+                format: winston.format.combine(
+                    winston.format.splat(),
+                    winston.format.label({ label: getFilePath(module) }),
+                    winston.format.colorize(),
+                    winston.format.printf(nfo => {
+                      return `${nfo.level}: [${nfo.label}] ${nfo.message}`;
+                    })
+                )
             })
         ],
         exitOnError: false
