@@ -5,7 +5,7 @@ var libs = process.cwd() + '/libs/';
 var log = require(libs + 'log')(module);
 var config = require(libs + 'config');
 
-mongoose.connect(config.get('mongoose:uri'));
+mongoose.connect(config.get('mongoose:uri'), { useCreateIndex: true, useUnifiedTopology: true, useNewUrlParser: true });
 
 var db = mongoose.connection;
 

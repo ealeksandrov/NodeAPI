@@ -32,8 +32,8 @@ var generateTokens = function (data, done) {
         token,
         tokenValue;
 
-    RefreshToken.remove(data, errorHandler);
-    AccessToken.remove(data, errorHandler);
+    RefreshToken.deleteMany(data, errorHandler);
+    AccessToken.deleteMany(data, errorHandler);
 
     tokenValue = crypto.randomBytes(32).toString('hex');
     refreshTokenValue = crypto.randomBytes(32).toString('hex');
