@@ -13,7 +13,7 @@
         "body-parser": "^1.18.x",
         "express": "^4.16.x",
         "faker": "^4.1.x",
-        "mongoose": "^5.0.x",
+        "mongoose": "^5.7.6",
         "nconf": "^0.10.x",
         "oauth2orize": "^1.11.x",
         "passport": "^0.4.x",
@@ -23,7 +23,7 @@
         "winston": "^2.4.x"
     },
     "devDependencies": {
-        "superagent": "^3.8.x",
+        "superagent": "^5.1.0",
         "tape": "^4.9.x"
     },
     "jshintConfig": {
