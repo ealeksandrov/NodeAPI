@@ -32,7 +32,8 @@ npm install
 
 ```sh
 # Install MongoDB with Homebrew
-brew install mongodb
+brew tap mongodb/brew
+brew install mongodb-community
 
 # Create directory for MongoDB data
 mkdir -p ./data/mongo
