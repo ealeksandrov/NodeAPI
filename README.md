@@ -1,6 +1,6 @@
 # Node REST API
 
-[![CI Status](http://img.shields.io/travis/ealeksandrov/NodeAPI.svg)](https://travis-ci.org/ealeksandrov/NodeAPI)
+[![CI Status](https://github.com/ealeksandrov/NodeAPI/workflows/CI/badge.svg?branch=master)](https://github.com/ealeksandrov/NodeAPI/actions)
 [![Dependency Status](https://img.shields.io/david/ealeksandrov/NodeAPI.svg)](https://david-dm.org/ealeksandrov/NodeAPI)
 [![Dependency Status](https://img.shields.io/david/dev/ealeksandrov/NodeAPI.svg)](https://david-dm.org/ealeksandrov/NodeAPI)
 [![License](https://img.shields.io/github/license/ealeksandrov/NodeAPI.svg)](LICENSE.md)
