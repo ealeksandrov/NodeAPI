@@ -1,4 +1,4 @@
-# Node REST API
+# node REST API 
 
 [![CI Status](https://github.com/ealeksandrov/NodeAPI/workflows/CI/badge.svg?branch=master)](https://github.com/ealeksandrov/NodeAPI/actions)
 [![Dependency Status](https://img.shields.io/david/ealeksandrov/NodeAPI.svg)](https://david-dm.org/ealeksandrov/NodeAPI)
