@@ -14,7 +14,7 @@
         "express": "^4.16.x",
         "faker": "^5.1.0",
         "mongoose": "^6.0.x",
-        "nconf": "^0.11.0",
+        "nconf": "^0.11.4",
         "oauth2orize": "^1.11.x",
         "passport": "^0.5.x",
         "passport-http": "^0.3.x",
