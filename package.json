@@ -13,7 +13,7 @@
         "body-parser": "^1.20.x",
         "express": "^4.21.x",
         "faker": "^5.1.0",
-        "mongoose": "^6.12.x",
+        "mongoose": "^8.8.x",
         "nconf": "^0.11.4",
         "oauth2orize": "^1.11.x",
         "passport": "^0.6.x",
